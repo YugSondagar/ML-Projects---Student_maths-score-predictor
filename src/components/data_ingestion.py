@@ -1,0 +1,1 @@
+#data_ingestion means ---> It is the process of collecting and importing data from various sources into a system where it can be stored, processed, and analyzed (like a database, data lake, or data warehouse).  

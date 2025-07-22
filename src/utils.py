@@ -1,0 +1,1 @@
+# When we want to read something from database .We can create mongodb client from here
