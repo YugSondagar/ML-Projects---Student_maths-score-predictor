@@ -43,47 +43,49 @@ class ModelTrainer:
                 "XG Boost": XGBRegressor(),
                 "CatBoost": CatBoostRegressor(verbose=False)
             }
-            params={
+            params = {
+                "Random Forest": {
+                    'n_estimators': [100, 200],
+                    'max_depth': [None, 10, 20],
+                    'min_samples_split': [2, 5],
+                    'max_features': ['sqrt'],
+                    'n_jobs': [-1]  # Already set in model
+                },
+                "Gradient Boosting": {
+                    'n_estimators': [100, 200],
+                    'learning_rate': [0.05, 0.1],
+                    'max_depth': [3, 5],
+                    'subsample': [0.8, 0.9]
+                },
+                "XG Boost": {
+                    'n_estimators': [100, 200],
+                    'learning_rate': [0.05, 0.1],
+                    'max_depth': [3, 5],
+                    'colsample_bytree': [0.8, 0.9],
+                    'n_jobs': [-1]  # Already set in model
+                },
+                "CatBoost": {
+                    'iterations': [100, 200],
+                    'depth': [6, 8],
+                    'learning_rate': [0.05, 0.1],
+                    'thread_count': [-1]  # CatBoost equivalent
+                },
+                "Ada Boost": {
+                    'n_estimators': [50, 100],
+                    'learning_rate': [0.05, 0.1]
+                },
                 "Decision Tree": {
-                    'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
-                    # 'splitter':['best','random'],
-                    # 'max_features':['sqrt','log2'],
+                    'max_depth': [None, 5, 10],
+                    'min_samples_split': [2, 5]
                 },
-                "Random Forest":{
-                    # 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
-                 
-                    # 'max_features':['sqrt','log2',None],
-                    'n_estimators': [8,16,32,64,128,256]
-                },
-                "Gradient Boosting":{
-                    # 'loss':['squared_error', 'huber', 'absolute_error', 'quantile'],
-                    'learning_rate':[.1,.01,.05,.001],
-                    'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
-                    # 'criterion':['squared_error', 'friedman_mse'],
-                    # 'max_features':['auto','sqrt','log2'],
-                    'n_estimators': [8,16,32,64,128,256]
-                },
-                "Linear Regression":{},
-                "XG Boost":{
-                    'learning_rate':[.1,.01,.05,.001],
-                    'n_estimators': [8,16,32,64,128,256]
-                },
-                "CatBoost":{
-                    'depth': [6,8,10],
-                    'learning_rate': [0.01, 0.05, 0.1],
-                    'iterations': [30, 50, 100]
-                },
-                "Ada Boost":{
-                    'learning_rate':[.1,.01,0.5,.001],
-                    # 'loss':['linear','square','exponential'],
-                    'n_estimators': [8,16,32,64,128,256]
-                },
-                "KNN": {  # Added KNN hyperparameters
-                    'n_neighbors': [3, 5, 7, 9],
+                "KNN": {
+                    'n_neighbors': [3, 5, 7],
                     'weights': ['uniform', 'distance'],
-                    'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute']
+                    'n_jobs': [-1]  # Already set in model
+                },
+                "Linear Regression": {
+                    'n_jobs': [-1]  # Already set in model
                 }
-                
             }
 
             model_report:dict=evaluate_model(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models,params=params)
