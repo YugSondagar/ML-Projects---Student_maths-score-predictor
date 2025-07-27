@@ -32,4 +32,4 @@ def predict_datapoint():  # Renamed to match route
         return render_template('home.html', results=round(results[0], 2))  # Rounded to 2 decimal places
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0")
